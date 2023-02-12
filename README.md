@@ -12,5 +12,6 @@ ví dụ:
   - name service: App Service
   - id task: URL của task ở project là itemId (20186602) (https://github.com/users/dinhhieuz/projects/3/views/3?pane=issue&itemId=20186602)
   - tên task: Khởi tạo service
-  => (App Service / 20186602): Khởi tạo service
+  
+ => (App Service / 20186602): Khởi tạo service
   
