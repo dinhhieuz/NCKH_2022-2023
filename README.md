@@ -6,7 +6,12 @@
 
 1. git clone https://github.com/dinhhieuz/NCKH_2022-2023.git
 2. cd NCKH_2022-2023
-3. git 
+
+### Hướng dẫn commit Git
+1. git pull origin dev
+2. git add .
+3. git commit -m "..."
+4. git push
 
 ### Cú pháp commit
 
