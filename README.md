@@ -8,6 +8,7 @@
 2. cd NCKH_2022-2023
 
 ### Hướng dẫn commit Git
+0. git checkout (name branch)
 1. git pull origin dev
 2. git add .
 3. git commit -m "..."
