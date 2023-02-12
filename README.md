@@ -21,10 +21,16 @@ ví dụ:
  ### Mô tả:
  
   - Branch: 
-    1. main: Nhánh chính đã merge và check
-    2. dev: Nhánh sẽ được (Hiếu) merge vào từ nhánh 3, 4, 5, 6
-    3. mobie_service: Nhánh sẽ được (Tưởng) merge vào và chỉ được sử dụng nhánh ni
-    4. app_service: Nhánh này của (Huy) chỉ được làm việc tại đây
-    5. qr_service: Nhánh của (Huyền) tương tự như 3, 4
-    6. num_service: Nhánh của (Luân) tương tự như 3, 4, 5
+    1. main: 
+      Nhánh chính đã merge và check
+    3. dev: 
+      Nhánh sẽ được (Hiếu) merge vào từ nhánh 3, 4, 5, 6
+    5. mobie_service: 
+      Nhánh sẽ được (Tưởng) merge vào và chỉ được sử dụng nhánh ni
+    7. app_service: 
+      Nhánh này của (Huy) chỉ được làm việc tại đây
+    9. qr_service: 
+      Nhánh của (Huyền) tương tự như 3, 4
+    11. num_service: 
+      Nhánh của (Luân) tương tự như 3, 4, 5
   
