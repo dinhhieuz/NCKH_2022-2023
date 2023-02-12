@@ -4,9 +4,9 @@
 
 ### Hướng dẫn kết nối Git Repo
 
-1. 
-2. 
-3. 
+1. git clone https://github.com/dinhhieuz/NCKH_2022-2023.git
+2. cd NCKH_2022-2023
+3. git 
 
 ### Cú pháp commit
 
