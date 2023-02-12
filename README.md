@@ -6,6 +6,8 @@
 
 1. git clone https://github.com/dinhhieuz/NCKH_2022-2023.git
 2. cd NCKH_2022-2023
+3. git checkout (name branch)
+4. git pull origin dev
 
 ### Hướng dẫn commit Git
 0. git checkout (name branch)
