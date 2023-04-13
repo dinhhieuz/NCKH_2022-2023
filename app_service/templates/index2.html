@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>huynam</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="text-center alert alert-danger">Danh sach sinh vien</h1>
+        <div class="row">
+            <div class="col-sm-8">
+<h2 >Student List <button class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">Add Student</button></h2>
+            </div>
+        </div>
+    <table class="table table-hover">
+        <tr>
+            <th scope="col">MASINHVIEN</th>
+            <th scope="col">TENSINHVIEN</th>
+            <th scope="col">NGAYSINH</th>
+            <th scope="col">SDT</th>
+            <th scope="col">LOP</th>
+            <th scope="col">KHOA</th>
+
+        </tr>
+        {% for row in sinhvien %}
+        <tr>
+            <td>{{row.0}}</td>
+            <td>{{row.1}}</td>
+            <td>{{row.2}}</td>
+            <td>{{row.3}}</td>
+            <td>{{row.4}}</td>
+            <td>{{row.5}}</td>
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>
