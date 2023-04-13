@@ -57,8 +57,8 @@ class ImageProcessing:
         contours, hierarchy = self.findContour(thresh)
         rects = self.filterContour(contours)
         image = self.getCoordinates(grayImage, rects)
-        ##
-        image = self.gaussianBlur(image)
+        # ##
+        # image = self.gaussianBlur(image)
         cv2.imshow('output', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -70,19 +70,19 @@ class ExtractMark:
         self.image = image
         return
     
-    # def readMark(self):
-    #     import tensorflow as tf
-    #     from keras.models import load_model
-    #     import numpy as np
+    def readMark(self):
+        import tensorflow as tf
+        from keras.models import load_model
+        import numpy as np
 
-    #     model = load_model(self.fileModel)
-    #     img = np.reshape(cv2.resize(self.image.astype(float), (28, 28)), (-1, 28, 28, 1)) / 255
+        model = load_model(self.fileModel)
+        img = np.reshape(cv2.resize(self.image.astype(float), (28, 28)), (-1, 28, 28, 1)) / 255
 
-    #     result = model.predict(img)
-    #     print(result)
-    #     max_index = np.argmax(result)
-    #     print(max_index)
-    #     return max_index
+        result = model.predict(img)
+        print(result)
+        max_index = np.argmax(result)
+        print(max_index)
+        return max_index
 
     # def OCR(self): 
     #     import easyocr
@@ -97,9 +97,15 @@ class ExtractMark:
         import numpy as np 
         
         img = cv2.resize(self.image.astype(float), (28, 28)).reshape(-1, 28, 28, 1).flatten().reshape(1, -1) / 255
-        
+        # img  = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+        # cv2.imshow('nhiphan', img)
+
         model = load(self.fileModel)
-        y_pred = model.predict(img)[0]
+        print("--------"*5)
+        pred = model.predict(img)
+        print(pred)
+        print("-------"*5)
+        y_pred = pred[0]
         print(y_pred)
         return y_pred
 
@@ -109,9 +115,9 @@ def main():
     image = processing.process()
     model = ExtractMark('tree_classifier_model.pkl', image) 
     model.Classifier()
-    quit()
-    model = ExtractMark('Handwrite_Recognize.h5', image)
-    model.readMark()
+    # quit()
+    # model = ExtractMark('Handwrite_Recognize.h5', image)
+    # model.readMark()
 
 if __name__ == '__main__': 
     main()

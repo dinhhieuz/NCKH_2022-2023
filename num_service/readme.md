@@ -1,1 +1,0 @@
-các bạn thực hiện tại folder của mình
