@@ -1,12 +1,16 @@
 import cv2
-import pickle
 
 class ImageProcessing: 
+
     def __init__(self, filename, W=547, H=447, C=3) -> None:
         self.filename = filename
         self.W = W
         self.H = H 
         self.C = C
+
+        image = self.readImage()
+        image = self.resize(image)
+        self.image = image
         return
     
     def readImage(self): 
@@ -15,14 +19,19 @@ class ImageProcessing:
     def resize(self, img):
         return cv2.resize(img, (self.H, self.W))
     
-    def crop(self, img): 
-        return img[50:int(self.H/3), :int(self.W/4)]
+    def crop(self, img, object_name): 
+        if object_name == 'marking': 
+            return img[50:int(self.H/3), :int(self.W/4)]
+        return img[int(self.H*0.5/7):int(self.H/5), int(self.W*4/6):int(self.W*4.5/6)]
     
     def grayScale(self, img): 
         return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     def threshOld(self, gray):
         return cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+    
+    def binary(self, gray): 
+        return cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     
     def findContour(self, thresh): 
         return cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -48,76 +57,68 @@ class ImageProcessing:
         blur = cv2.GaussianBlur(image, ksize, sigmaX) 
         return blur
     
-    def process(self): 
-        image = self.readImage()
-        image = self.resize(image)
-        image = self.crop(image)
+    def convert_binary(self, binary): 
+        return cv2.bitwise_not(binary)
+    
+    def detect_marking(self): 
+        image = self.crop(self.image, object_name = 'marking')
         grayImage = self.grayScale(image)
         thresh = self.threshOld(grayImage)
         contours, hierarchy = self.findContour(thresh)
         rects = self.filterContour(contours)
         image = self.getCoordinates(grayImage, rects)
-        # ##
-        # image = self.gaussianBlur(image)
-        cv2.imshow('output', image)
+        binary = self.binary(image)
+        image = self.convert_binary(binary)
+
+        cv2.imshow('Marking', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         return image
     
+    def detect_ID(self): 
+        image = self.crop(self.image, object_name = 'ID')
+        grayImage = self.grayScale(image)
+        binary = self.binary(grayImage)
+        image = self.convert_binary(binary)
+
+        cv2.imshow('ID', image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        return image
+
 class ExtractMark: 
-    def __init__(self, fileModel, image) -> None:
+    def __init__(self, fileModel, list_image) -> None:
         self.fileModel = fileModel
-        self.image = image
+        self.list_image = list_image
+        from tensorflow.keras.models import load_model
+        self.model = load_model(self.fileModel)
+
         return
     
     def readMark(self):
-        import tensorflow as tf
-        from keras.models import load_model
         import numpy as np
+        fields = ['marking', 'confidence_1', 'id', 'confidence_2']
+        info = []
+        for image in self.list_image:
+            img = np.reshape(cv2.resize(image.astype(float), (28, 28)), (-1, 28, 28, 1)) / 255.0
 
-        model = load_model(self.fileModel)
-        img = np.reshape(cv2.resize(self.image.astype(float), (28, 28)), (-1, 28, 28, 1)) / 255
+            result = self.model.predict(img)
+            mark = np.argmax(result)
+            confidence = np.max(result) * 100
+            info += [mark, confidence]
 
-        result = model.predict(img)
-        print(result)
-        max_index = np.argmax(result)
-        print(max_index)
-        return max_index
-
-    # def OCR(self): 
-    #     import easyocr
-    #     reader = easyocr.Reader(['en'])
-    #     result = reader.readtext(self.image)
-    #     mark = ' '.join(detect[1] for detect in result)
-    #     print("EXTRACT: ", mark)
-    #     return
+        record = dict(zip(fields, info))
+        print(record)
+        return record
     
-    def Classifier(self):
-        from joblib import load
-        import numpy as np 
-        
-        img = cv2.resize(self.image.astype(float), (28, 28)).reshape(-1, 28, 28, 1).flatten().reshape(1, -1) / 255
-        # img  = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-        # cv2.imshow('nhiphan', img)
-
-        model = load(self.fileModel)
-        print("--------"*5)
-        pred = model.predict(img)
-        print(pred)
-        print("-------"*5)
-        y_pred = pred[0]
-        print(y_pred)
-        return y_pred
-
-
 def main(): 
-    processing = ImageProcessing('9.jpg')
-    image = processing.process()
-    model = ExtractMark('tree_classifier_model.pkl', image) 
-    model.Classifier()
-    # quit()
-    # model = ExtractMark('Handwrite_Recognize.h5', image)
-    # model.readMark()
+    processing = ImageProcessing('2.jpg')
+    marking = processing.detect_marking()
+    id = processing.detect_ID()
+    image = [marking, id]
+
+    model = ExtractMark('model.h5', image)
+    info = model.readMark()
 
 if __name__ == '__main__': 
     main()
