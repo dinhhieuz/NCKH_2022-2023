@@ -21,9 +21,10 @@ class ImageProcessing:
     
     def crop(self, img, object_name): 
         if object_name == 'marking': 
-            return img[50:int(self.H/3), :int(self.W/4)]
-        return img[int(self.H*0.5/7):int(self.H/5), int(self.W*4/6):int(self.W*4.5/6)]
-    
+            return img[95:int(self.H/2.8), :int(self.W/4)] ## img[50:int(self.H/2.8), :int(self.W/4)]
+        return img[int(self.H*0.5/7):int(self.H/5), int(self.W*3.5/6):int(self.W*4.5/6)]
+        # img[int(self.H*0.5/7):int(self.H/5), int(self.W*4/6):int(self.W*4.5/6)]
+        
     def grayScale(self, img): 
         return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
@@ -80,7 +81,7 @@ class ImageProcessing:
         grayImage = self.grayScale(image)
         binary = self.binary(grayImage)
         image = self.convert_binary(binary)
-
+        
         cv2.imshow('ID', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -112,7 +113,7 @@ class ExtractMark:
         return record
     
 def main(): 
-    processing = ImageProcessing('2.jpg')
+    processing = ImageProcessing('test1.jpg')
     marking = processing.detect_marking()
     id = processing.detect_ID()
     image = [marking, id]
