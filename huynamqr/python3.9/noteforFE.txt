@@ -1,0 +1,2 @@
+"container-fluid". Lớp này sẽ tạo ra một vùng hiển thị tràn khung nhìn của trình duyệt, với các cột và hàng được căn chỉnh để tự động thay đổi 
+kích thước khi kích thước của trang web thay đổi.
