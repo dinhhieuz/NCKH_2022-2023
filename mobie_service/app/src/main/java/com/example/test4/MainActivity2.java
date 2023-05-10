@@ -1,4 +1,4 @@
-package com.example.myproject;
+package com.example.test4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +16,10 @@ public class MainActivity2 extends AppCompatActivity {
     Spinner spinner1, spinner2, spinner3, spinner4;
     Button btnOK;
 
-    String[] ngchamthi = {"A","B","C","D"};
-    String[] monthi = {"CSDL","CSLT","ATM","PTTK"};
+
+
+    String[] ngchamthi = {"1-1-2023","2-1-2023","3-1-2023","4-1-2023","5-1-2023"};
+    String[] monthi = {"Cơ sở lập trình","Cơ sở dữ liệu","Mạng và truyền thông","Phân tích thiết kế HTTT"};
     String[] cathi = {"0700_0830","0900_1030","1330_1500","1530_1700"};
     String[] phongthi = {"D001","D002","D003","D004"};
 
@@ -25,7 +27,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2_main);
+        setContentView(R.layout.activity_main2);
         spinner1=findViewById(R.id.ngchamthi);
         spinner2=findViewById(R.id.monthi);
         spinner3=findViewById(R.id.cathi);
@@ -46,6 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
         spinner2.setAdapter(adapter2);
         spinner3.setAdapter(adapter3);
         spinner4.setAdapter(adapter4);
+
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -105,8 +108,7 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(ac2);
             }
         });
+
     }
+
 }
-
-
-

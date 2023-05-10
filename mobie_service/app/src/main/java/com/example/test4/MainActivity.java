@@ -1,4 +1,4 @@
-package com.example.myproject;
+package com.example.test4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.myproject.MainActivity2;
-
 public class MainActivity extends AppCompatActivity {
-
     Button btnDn;
 
     @Override
@@ -26,9 +23,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(ac2);
             }
         });
-
-
     }
 }
-
-

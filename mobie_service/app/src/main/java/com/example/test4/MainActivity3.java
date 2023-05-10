@@ -1,11 +1,10 @@
-package com.example.myproject;
+package com.example.test4;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,15 +18,14 @@ import android.widget.Toast;
 public class MainActivity3 extends AppCompatActivity {
     public static final int CAMERA_ACTION_CODE = 1;
     Button takephoto;
-
     ImageView photoView;
-
     ActivityResultLauncher<Intent> activityResultLauncher;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)  {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity3_main);
+        setContentView(R.layout.activity_main3);
 
         takephoto = findViewById(R.id.Camera);
         photoView = findViewById(R.id.PhotoView);
@@ -56,5 +54,4 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
     }
-
 }

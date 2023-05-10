@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="40dp"
-            android:src="@drawable/due" />
+            android:src="@drawable/duelogo" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -38,17 +37,9 @@
             android:inputType="textPassword"
             android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="20dp"
-            android:text="Quen mat khau ?"
-            android:textColor="#000"
-            android:textSize="15dp" />
 
         <Button
+            android:id="@+id/buttonDn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -56,8 +47,8 @@
             android:text="Dang nhap"
             android:textColor="#fff"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:id="@+id/buttonDn"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
+
 </RelativeLayout>
