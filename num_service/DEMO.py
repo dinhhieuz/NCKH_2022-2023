@@ -1,6 +1,7 @@
 import cv2 
 import numpy as np 
 from pyzbar.pyzbar import decode
+import base64
 
 class ImageProcessing: 
     def __init__(self, filename) -> None:
@@ -45,6 +46,10 @@ class ImageProcessing:
         qr = DetectQR()
         return qr.extract(self.image)
 
+    def convert_base64(self):
+        _, buffer = cv2.imencode('.jpg', self.image)
+        encoded_string = base64.b64encode(buffer)
+        return encoded_string
 
 class ExtractMark: 
     def __init__(self, fileModel) -> None:
@@ -87,7 +92,7 @@ if __name__ == '__main__':
 
     result_marking = [mark.get_qrcode()]
     result_marking += pred.read(mark_cell)
-    print('Marking', result_marking)
+    result_marking += [mark.convert_base64()]
 
     ###### 
 
@@ -97,4 +102,4 @@ if __name__ == '__main__':
 
     result_id = [id.get_qrcode()]
     result_id += pred.read(id_cell)
-    print('ID', result_id)
+    result_id += [id.convert_base64()]
