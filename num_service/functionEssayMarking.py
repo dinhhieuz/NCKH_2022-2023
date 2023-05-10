@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 class ImageProcessing: 
 
@@ -21,8 +22,8 @@ class ImageProcessing:
     
     def crop(self, img, object_name): 
         if object_name == 'marking': 
-            return img[95:int(self.H/2.8), :int(self.W/4)] ## img[50:int(self.H/2.8), :int(self.W/4)]
-        return img[int(self.H*0.5/7):int(self.H/5), int(self.W*3.5/6):int(self.W*4.5/6)]
+            return img[75:int(self.H/2.5), :int(self.W/4)] ## img[50:int(self.H/2.8), :int(self.W/4)]
+        return img[int(self.H*0.75/7):int(self.H/5), int(self.W*2.075/3):int(self.W*4.5/6)]
         # img[int(self.H*0.5/7):int(self.H/5), int(self.W*4/6):int(self.W*4.5/6)]
         
     def grayScale(self, img): 
@@ -97,7 +98,6 @@ class ExtractMark:
         return
     
     def readMark(self):
-        import numpy as np
         fields = ['marking', 'confidence_1', 'id', 'confidence_2']
         info = []
         for image in self.list_image:
@@ -113,7 +113,7 @@ class ExtractMark:
         return record
     
 def main(): 
-    processing = ImageProcessing('test1.jpg')
+    processing = ImageProcessing('test.jpg')
     marking = processing.detect_marking()
     id = processing.detect_ID()
     image = [marking, id]
