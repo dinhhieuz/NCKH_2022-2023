@@ -88,18 +88,19 @@ if __name__ == '__main__':
     pred = ExtractMark('model.h5')
 
     mark = ImageProcessing('anh1.jpg')
-    mark_cell = mark.detect_marking()
-
     result_marking = [mark.get_qrcode()]
+
+    mark_cell = mark.detect_marking()
     result_marking += pred.read(mark_cell)
-    result_marking += [mark.convert_base64()]
+    result_marking += [mark.convert_base64()[:5]]
+    print(result_marking)
 
     ###### 
 
     id = ImageProcessing('anh2.jpg')
-    id_cell = id.detect_ID()
-    pred.read(id_cell)
-
     result_id = [id.get_qrcode()]
+
+    id_cell = id.detect_ID()
     result_id += pred.read(id_cell)
-    result_id += [id.convert_base64()]
+    result_id += [id.convert_base64()[:5]]
+    print(result_id)
