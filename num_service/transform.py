@@ -8,6 +8,13 @@ register_heif_opener()
 
 def image_processing(image):
     img = np.array(image)
+
+    ### 
+    height, width, _ = img.shape
+    margin = 10
+    img = img[margin:height-margin, margin:width-margin]
+    ###
+
     img = cv2.resize(img, (28, 28))
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     binary = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -22,7 +29,7 @@ def heic2image(heic_path, jpg_path):
 
 numbers = [number.replace('\\', '/') for number in glob.glob('DUE_MNIST/raw_data/*')]
 
-for number in numbers[1:]: 
+for number in numbers: 
     n = number.split('/')[-1]
     print(f'Converting HEIC to Image with number {n}')
 
