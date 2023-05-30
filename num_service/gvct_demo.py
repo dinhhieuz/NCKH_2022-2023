@@ -54,7 +54,7 @@ class ExtractMark:
     
     def read(self, image):
         extract = self.reader.readtext(image)[0]
-        result = [extract[1].replace(' ', '').replace(',', ''), extract[2]]
+        result = [extract[1].replace(' ', '').replace(',', ''), round(extract[2], 2)]
         
         return result
 
